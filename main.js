@@ -1,25 +1,47 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-const scene = new THREE.Scene();
 
-//MESH
-const geometry = new THREE.SphereGeometry(3, 64, 64)
-const material = new THREE.MeshStandardMaterial({
-  color: "#00ff83",
-})
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
-//LIGHT
-const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(0, 10, 10);
-scene.add(light);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
 
-//CAMERA
-const camera = new THREE.PerspectiveCamera(45, 800/600)
-camera.position.z = 12
-scene.add(camera)
-//RENDER
-const canvas = document.querySelector(".webgl");
-const renderer = new THREE.WebGLRenderer({canvas})
-renderer.setSize(800,600)
-renderer.render(scene, camera);
+
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+camera.position.set( 0, 0, 100 );
+camera.lookAt( 0, 0, 0 );
+
+const scene = new THREE.Scene()
+scene.background = new THREE.Color("green")
+console.log(scene);
+
+new OrbitControls(camera, renderer.domElement)
+//create a blue LineBasicMaterial
+const material = new THREE.LineBasicMaterial( { color: "red" } ); 
+const points = [];
+points.push( new THREE.Vector3( - 10, 0, 0 ) );
+points.push( new THREE.Vector3( 0, 10, 0 ) );
+points.push( new THREE.Vector3( 10, 0, 0 ) );
+
+const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+const line = new THREE.Line( geometry, material );
+scene.add( line );
+
+window.addEventListener('resize', onWindowResize, false)
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.render(scene, camera)
+}
+
+function animate() {
+    requestAnimationFrame(animate)
+
+    line.rotation.y += 0.01
+
+    renderer.render(scene, camera)
+}
+
+animate()
