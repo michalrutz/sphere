@@ -6,7 +6,6 @@ let sizes = {
   height: window.innerHeight
 }
 
-
 const scene = new THREE.Scene();
 //MESH
 const geometry = new THREE.SphereGeometry(3,64,64)
@@ -28,6 +27,7 @@ const camera = new THREE.PerspectiveCamera(
 )
 camera.position.z = 20
 scene.add(camera)
+
 //RENDER
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({canvas})
