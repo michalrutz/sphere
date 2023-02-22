@@ -3,36 +3,30 @@ import gsap from "gsap"
 import GUI from 'lil-gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
+import basecolor from "./static/TerrazzoSlab003_COL_1K_SPECULAR.png"
+import pixerTexture from "./static/texture.png"
 
 import font from "./node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json"
+console.log(font);
+//-> /static/ folder only works because of the Vite template's configuration.
 
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+//LOADING TEXTURE
+const image = new Image() //It is functionally equivalent to document.createElement('img').
+image.src = basecolor
 
+const manager = new THREE.LoadingManager();
 
+const colorTexture = new THREE.Texture(image) // convert Image into Texture
+image.addEventListener('load', () => { 
+    manager.onStart = (() => {console.log("STARTED")})()
+    manager.onLoad = (() => { console.log("LOADING")})()
+    manager.onProgress = (() => { console.log("PROGRESS")})()
 
-
-const fontLoader = new FontLoader();
-    fontLoader.load(
-      'node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json',
-      (droidFont) => {
-        const textGeometry = new TextGeometry('three.js', {
-            size: 2, height: 0.4, font: droidFont, 
-            bevelEnabled: true, bevelThickness: 0.1, bevelSize: 0.1, bevelSegments: 4
-        });
-        const textMaterial = new THREE.MeshNormalMaterial();
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-
-        textGeometry.computeBoundingBox()
-        textMesh.position.x -= textGeometry.boundingBox.max.x/2
-        textMesh.position.y -= textGeometry.boundingBox.max.y/2
-        textMesh.position.z -= textGeometry.boundingBox.max.z/2
-        console.log(textGeometry.boundingBox)
-
-        console.log( textMesh.position.x) 
-        scene.add(textMesh);
-      }
-    );
+    colorTexture.needsUpdate = true 
+}) //hey Texture! Image was loaded updated yourself!
+colorTexture.wrapS = THREE.RepeatWrapping;
+colorTexture.wrapT = THREE.RepeatWrapping;
+colorTexture.generateMipmaps = true
 
 //SCENE
 const scene = new THREE.Scene()
@@ -40,9 +34,42 @@ const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(
     45, window.innerWidth / window.innerHeight
 )
-camera.position.z = 10
+camera.position.z = 4
 scene.add(camera)
 
+let params = {
+    color:"red",
+    spin: ()=>{
+        mesh.rotation.y += Math.PI.toFixed()*2
+    }
+}
+
+//GEO
+const geometry = new THREE.BoxGeometry(1,1,1)
+const material = new THREE.MeshNormalMaterial()
+material.flatShading = true
+const mesh = new THREE.Mesh( geometry, material )
+mesh.position.set( 0, 0, 0)
+scene.add(mesh)
+
+const gui = new GUI();
+
+gui
+    .add( mesh.position, "y" )
+        .min(-1).max(1).step(0.1)
+        .name("box Y")
+gui
+    .add( mesh, "visible" )
+gui
+    .add( material, "wireframe" )
+
+gui
+    .addColor( params , "color" )
+    .onChange( () => {
+        material.color.set( params.color ) 
+    })
+gui.
+    add( params, "spin" )
 
 
 //RENDERER
