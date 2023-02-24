@@ -53,27 +53,6 @@ const mesh = new THREE.Mesh( geometry, material )
 mesh.position.set( 0, 0, 0)
 scene.add(mesh)
 
-const gui = new GUI();
-gui
-    .add( mesh.position, "y" ).min(-1).max(1).step(0.1).name("box Y")
-gui
-    .add( material, "roughness" ).min(-1).max(1).step(0.1)
-gui
-    .add( light.position, "z" ).min(-22).max(10).step(1)
-
-let params = {
-    color:"red",
-    spin: ()=>{
-        mesh.rotation.y += Math.PI.toFixed()*2
-        }
-    }
-gui
-    .addColor( params , "color" )
-    .onChange( () => {
-        material.color.set( params.color ) 
-    })
-gui.
-    add( params, "spin" )
 
 
 //RENDERER
