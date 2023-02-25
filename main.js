@@ -19,7 +19,7 @@ scene.add(camera)
 
 //LIGHT
 const light = new THREE.PointLight( "white", 1.5, 200 );
-light.position.set(10,10,-14)
+light.position.set( 0 , 0, -14)
 scene.add( light )
 
 //LOADING TEXTURE
@@ -32,26 +32,21 @@ const geometry = new THREE.SphereGeometry(1,64,64)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
-        rncolors.push(Math.floor(Math.random()*255));
+        rncolors.push(Math.floor(Math.random()*155));
     }
     return rncolors
 }
 let rncolors = randomColors(3)
 
-console.log(rncolors)
-let randomColor = Math.floor(Math.random()*255)
-let randomColor2 = Math.floor(Math.random()*255)
-let randomColor3 = Math.floor(Math.random()*255)
-
-console.log(randomColor)
-console.log(`rgb(${randomColor}, ${randomColor2}, ${randomColor})`)
-const material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`
+let material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`
 
 })
-material.roughness = 0.4
+material.roughness = 0.3
 const mesh = new THREE.Mesh( geometry, material )
 mesh.position.set( 0, 0, 0)
+mesh.projectOnVector
 scene.add(mesh)
+
 
 
 
@@ -96,9 +91,14 @@ const animation = () =>{
 
 
     // moving in cirle 
-    light.position.x = Math.cos(elapsedTime/2)*15
-    light.position.y = Math.sin(elapsedTime/2)*15
-    light.position.z = -(Math.cos(elapsedTime/2)*25)
+    light.position.x = 0
+    light.position.x += Math.cos(elapsedTime/2)*15
+    light.position.y = 0
+    light.position.y += Math.sin(elapsedTime/2)*15
+    light.position.z = 0
+    light.position.z += -(Math.cos(elapsedTime/2)*25)
+
+    mesh.material.color.setRGB( Math.sin(elapsedTime/4), Math.cos(elapsedTime/4), Math.sin(elapsedTime/4))
 
     controls.update() //otherwise dumping doesn't work!
     // Render
