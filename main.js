@@ -24,7 +24,6 @@ light.position.set( 0 , 0, -14)
 scene.add( light )
 
 //LOADING TEXTURE
-const colorTexture = new THREE.TextureLoader().load("./static/TerrazzoSlab003_COL_1K_SPECULAR.png")
 const disTexture = new THREE.TextureLoader().load("./static/rock_boulder_dry_disp_4k.png")
 
 
