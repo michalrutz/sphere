@@ -3,10 +3,11 @@ import gsap from "gsap"
 import GUI from 'lil-gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RepeatWrapping } from "three";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 //SCENE
 const scene = new THREE.Scene()
-scene.fog = new THREE.Fog( "blue", 0, 15 );
+scene.fog = new THREE.Fog( "darkblue", 0, 15 );
 
 //CAMERA
 const camera = new THREE.PerspectiveCamera(
@@ -18,17 +19,26 @@ scene.add(camera)
 
 
 //LIGHT
-const light = new THREE.PointLight( "white", 1.5, 200 );
+const light = new THREE.PointLight( "white", 1, 200 );
 light.position.set( 0 , 0, -14)
 scene.add( light )
 
 //LOADING TEXTURE
 const colorTexture = new THREE.TextureLoader().load("./static/TerrazzoSlab003_COL_1K_SPECULAR.png")
+const disTexture = new THREE.TextureLoader().load("./static/rock_boulder_dry_disp_4k.png")
 
 
-colorTexture.repeat.set(2,2)
+disTexture.wrapS = RepeatWrapping
+disTexture.wrapT = RepeatWrapping
+
+disTexture.repeat.set(1,1)
 //GEO
-const geometry = new THREE.SphereGeometry(1,64,64)
+//let geometry2
+//const loader = new GLTFLoader()
+//loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
+
+
+const geometry = new THREE.OctahedronGeometry(3 ,16)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
@@ -38,13 +48,17 @@ function randomColors(num) {
 }
 let rncolors = randomColors(3)
 
-let material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`
+let material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`})
+material.displacementMap = disTexture
+material.displacementScale = 0.3
+material.bumpMap = disTexture
+material.bumpScale = 1
+material.roughness = 0.5
+material.metalness = 0.5
 
-})
-material.roughness = 0.3
 const mesh = new THREE.Mesh( geometry, material )
 mesh.position.set( 0, 0, 0)
-mesh.projectOnVector
+mesh.projectOnVector //?
 scene.add(mesh)
 
 
@@ -62,6 +76,8 @@ const controls = new OrbitControls(camera, canvas)
 controls.enablePan = false
 controls.enableDamping = true
 controls.enableZoom =  false
+controls.minPolarAngle = Math.PI/2; //block y axis up
+controls.maxPolarAngle = Math.PI/2; //block y axis down
 
 
 controls.addEventListener( "change", ()=> { renderer.render(scene, camera) })
@@ -89,7 +105,6 @@ const clock = new THREE.Clock()
 const animation = () =>{
     const elapsedTime = clock.getElapsedTime()
 
-
     // moving in cirle 
     light.position.x = 0
     light.position.x += Math.cos(elapsedTime/2)*15
@@ -97,9 +112,8 @@ const animation = () =>{
     light.position.y += Math.sin(elapsedTime/2)*15
     light.position.z = 0
     light.position.z += -(Math.cos(elapsedTime/2)*25)
-
     mesh.material.color.setRGB( Math.sin(elapsedTime/4), Math.cos(elapsedTime/4), Math.sin(elapsedTime/4))
-
+    mesh.rotation.y = elapsedTime*0.05
     controls.update() //otherwise dumping doesn't work!
     // Render
     renderer.render(scene, camera)
