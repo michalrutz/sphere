@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import "./style.css"
 import gsap from "gsap"
 import GUI from 'lil-gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -36,7 +37,7 @@ disTexture.generateMipmaps = false //turn off Mipmaps for better performance
 //loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
 
 
-const geometry = new THREE.SphereGeometry(3,32,32)
+let geometry = new THREE.SphereGeometry(3,32,32)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
@@ -55,11 +56,12 @@ material.roughness = 0.5
 material.metalness = 0.5
 
 const mesh = new THREE.Mesh( geometry, material )
+mesh.rotateZ( Math.PI/2 )
+mesh.rotateX( Math.PI/2 )
+
 mesh.position.set( 0, 0, 0)
 mesh.projectOnVector //?
 scene.add(mesh)
-
-
 
 
 //RENDERER
@@ -74,8 +76,10 @@ const controls = new OrbitControls(camera, canvas)
 controls.enablePan = false
 controls.enableDamping = true
 controls.enableZoom =  false
-controls.minPolarAngle = Math.PI/2; //block y axis up
-controls.maxPolarAngle = Math.PI/2; //block y axis down
+//controls.minPolarAngle = Math.PI/2; //block y axis up
+//controls.maxPolarAngle = Math.PI/2; //block y axis down
+controls.maxAzimuthAngle=Math.PI/2;
+controls.minAzimuthAngle=Math.PI/2;
 
 
 controls.addEventListener( "change", ()=> { renderer.render(scene, camera) })
@@ -111,7 +115,7 @@ const animation = () =>{
     light.position.z = -1
     light.position.z += Math.sin(elapsedTime)*10
     mesh.material.color.setRGB( Math.sin(elapsedTime/4), Math.cos(elapsedTime/4), Math.sin(elapsedTime/4))
-    mesh.rotation.y = elapsedTime*0.05
+    mesh.rotation.y = -elapsedTime*0.05
     controls.update() //otherwise dumping doesn't work!
     // Render
     renderer.render(scene, camera)
@@ -162,3 +166,5 @@ window.addEventListener( "resize", ()=> {
     renderer.render(scene, camera)
     }
 )
+
+document.getElementById( "title_bttn" ).addEventListener("click", ()=>{ console.log("spin") } )

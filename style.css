@@ -6,4 +6,81 @@
 
 html, body {
     overflow: hidden;
+    font-size: 62.5%;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 400;
+    color: white;
+}
+
+#c1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+header{
+    font-size:1.6rem;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+nav {
+    width: 100vw;
+    position: relative;
+    color: rgba(255, 255, 255, 1);
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem 10vw;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 4rem
+}
+nav li {
+    text-shadow: 0px 1px 2px rgb(0, 0, 0), 0 0 1rem rgb(0, 0, 0), 0 0 0.1rem #000000;
+}
+#title {
+    opacity: 0.75;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 2;
+    position: relative;
+    bottom: 5rem;
+    display: flex;
+    text-shadow: 0px 1px 2px rgb(0, 0, 0), 0 0 0.1rem rgb(0, 0, 0), 0 0 0.5rem #000000;
+}
+#under_title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 3rem;
+}
+h1{
+    text-align: center;
+    font-size: 6rem;
+}
+h2{
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.next {
+    width: 4rem;
+    height: 4rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.2);
 }
