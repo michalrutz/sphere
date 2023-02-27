@@ -16,28 +16,27 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 4
 scene.add(camera)
 
-
-
 //LIGHT
-const light = new THREE.PointLight( "white", 1, 200 );
+const light = new THREE.PointLight( "white", 0.8, 300 );
 light.position.set( 0 , 0, -14)
 scene.add( light )
 
 //LOADING TEXTURE
-const disTexture = new THREE.TextureLoader().load("./static/rock_boulder_dry_disp_4k.png")
-
-
-disTexture.wrapS = RepeatWrapping
+const disTexture = new THREE.TextureLoader().load("./static/Alien_Metal_002_DISP.jpg")
 disTexture.wrapT = RepeatWrapping
+disTexture.wrapS = RepeatWrapping
+disTexture.repeat.set(2,2)
 
-disTexture.repeat.set(1,1)
+disTexture.minFilter = THREE.NearestFilter
+disTexture.magFilter = THREE.NearestFilter //for pixel art
+disTexture.generateMipmaps = false //turn off Mipmaps for better performance
 //GEO
 //let geometry2
 //const loader = new GLTFLoader()
 //loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
 
 
-const geometry = new THREE.OctahedronGeometry(3 ,16)
+const geometry = new THREE.SphereGeometry(3,32,32)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
@@ -49,9 +48,9 @@ let rncolors = randomColors(3)
 
 let material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`})
 material.displacementMap = disTexture
-material.displacementScale = 0.3
-material.bumpMap = disTexture
-material.bumpScale = 1
+material.displacementScale = 0.1
+material.bumpMap = disTexture   
+material.bumpScale = 0.1
 material.roughness = 0.5
 material.metalness = 0.5
 
@@ -109,8 +108,8 @@ const animation = () =>{
     light.position.x += Math.cos(elapsedTime/2)*15
     light.position.y = 0
     light.position.y += Math.sin(elapsedTime/2)*15
-    light.position.z = 0
-    light.position.z += -(Math.cos(elapsedTime/2)*25)
+    light.position.z = -1
+    light.position.z += Math.sin(elapsedTime)*10
     mesh.material.color.setRGB( Math.sin(elapsedTime/4), Math.cos(elapsedTime/4), Math.sin(elapsedTime/4))
     mesh.rotation.y = elapsedTime*0.05
     controls.update() //otherwise dumping doesn't work!
