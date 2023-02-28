@@ -4,31 +4,60 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600&display=swap" rel="stylesheet">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet"/>
     <title>Vite App</title>
   </head>
   <body>
     <canvas id="c1"></canvas>
-    <header>
-      <nav>
-        <ul>
-          <li>About</li>
-          <li>Projects</li>
-        </ul>
-      </nav>
-      <div id="title">
-        <h1>Michal Rucinski</h1>
+    <header class="box">
+        <h1 id="title_main">Michał Ruciński</h1>
         <div id="under_title">
-          <h2>frontend developer & &nbsp;</h2>
+          <h2>frontend developer &&nbsp;</h2>
           <h2>graphic designer</h2>
         </div>
-        <button class="next" id="title_bttn">↓</button>
+        <button class="next" id="title_bttn" onclick="smoothScroll(document.getElementById('main'))" >↓</button>
+    </header> 
+    <main id="main" class="box">
+      <div class="card" id="card_about">
+        <div id="card_about_cover"></div>
+        <div id="about">
+          <h2>about me</h2>
+          <div id="photo"></div>
+          <p class="desciption">
+            Hi! I'm Michal. I'm a front-end developer, graphic designer, technology enthusiast, and an artist. I would like to invite you into the world of my art and ideas.
+          </p>
+          <h3>code</h3>
+          <div class="list">
+            <tag>Html</tag><tag>CSS</tag><tag>JavaScript</tag><tag>React</tag><tag>Three.js</tag><tag>GitHub</tag>
+          </div>
+          <h3>design</h3>
+          <div class="list">
+            <tag>Photoshop</tag><tag>Illustrator</tag><tag>Blender</tag><tag>Figma</tag><tag>Procreate</tag>
+          </div>
+        </div>
       </div>
-    </header>
-    
+      <button class="next" id="title_bttn" onclick="smoothScroll(document.getElementById('projects'))" >↓</button>
+    </main>
+    <section id="projects" class="box">
+        <h2>Projects</h2>
+    </section>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

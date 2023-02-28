@@ -114,7 +114,7 @@ const animation = () =>{
     light.position.y += Math.sin(elapsedTime/2)*15
     light.position.z = -1
     light.position.z += Math.sin(elapsedTime)*10
-    mesh.material.color.setRGB( Math.sin(elapsedTime/4), Math.cos(elapsedTime/4), Math.sin(elapsedTime/4))
+    mesh.material.color.setRGB( Math.cos(elapsedTime/4), Math.sin(elapsedTime/4), Math.cos(elapsedTime/4))
     mesh.rotation.y = -elapsedTime*0.05
     controls.update() //otherwise dumping doesn't work!
     // Render
@@ -167,4 +167,63 @@ window.addEventListener( "resize", ()=> {
     }
 )
 
+
 document.getElementById( "title_bttn" ).addEventListener("click", ()=>{ console.log("spin") } )
+//ANIMATIONS
+window.smoothScroll = function(target) {
+    var scrollContainer = target;
+    do { //find scroll container
+        scrollContainer = scrollContainer.parentNode;
+        if (!scrollContainer) return;
+        scrollContainer.scrollTop += 1;
+    } while (scrollContainer.scrollTop == 0);
+    
+    var targetY = 0;
+    do { //find the top of target relatively to the container
+        if (target == scrollContainer) break;
+        targetY += target.offsetTop;
+    } while (target = target.offsetParent);
+    
+    scroll = function(c, a, b, i) {
+        i++; if (i > 30) return;
+        c.scrollTop = a + (b - a) / 30 * i;
+        setTimeout(function(){ scroll(c, a, b, i); }, 8);
+    }
+    // start scrolling
+    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+}
+
+//CARD
+/*
+
+  using 
+    - an animated gif of sparkles.
+    - an animated gradient as a holo effect.
+    - color-dodge mix blend mode
+  
+*/
+
+let containter = document.getElementById("card_about_cover");
+let card = document.getElementById("about");
+
+containter.addEventListener('mousemove', function(e) {
+  let h = containter.offsetHeight
+  let y = e.offsetY
+  let w = containter.offsetWidth
+  let x = e.offsetX
+
+  //console.log( ((h/2-y)/(h/2)).toFixed(2)) //gives reslts between -1/ +1
+  let swingY = ((h/2-y)/(h/2)).toFixed(2)*10
+  let swingX = ((w/2-x)/(w/2)).toFixed(2)*10
+
+
+  card.style.transform = `rotateX( ${swingY}deg) rotateY( ${swingX}deg)`;
+  document.getElementById("photo").style.transform = `translateZ(0px)`;
+
+});
+
+containter.addEventListener('mouseout', ()=>{
+    card.style.transform = `rotateX( ${0}deg) rotateY( ${0}deg)`;
+    card.style.transitionDuration = "0.2s"
+    card.style.transitionTimingFunction = "ease-out"
+}) 
