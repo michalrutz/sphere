@@ -127,7 +127,7 @@ main {
 }
 
 #photo{
-    background-image: url("static/trans.png");
+    background-image: url("public/static/trans.png");
     background-color: rgba(240, 248, 255, 0.05);
     background-size: contain;
     width: 200px;
