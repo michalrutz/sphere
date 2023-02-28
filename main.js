@@ -216,14 +216,15 @@ containter.addEventListener('mousemove', function(e) {
   let swingY = ((h/2-y)/(h/2)).toFixed(2)*10
   let swingX = ((w/2-x)/(w/2)).toFixed(2)*10
 
-
   card.style.transform = `rotateX( ${swingY}deg) rotateY( ${swingX}deg)`;
-  document.getElementById("photo").style.transform = `translateZ(0px)`;
-
 });
 
-containter.addEventListener('mouseout', ()=>{
+
+containter.addEventListener('mouseenter', ()=>{
+    card.style.transition = "all 0.1s ease"
+}) 
+
+containter.addEventListener('mouseleave', ()=>{
     card.style.transform = `rotateX( ${0}deg) rotateY( ${0}deg)`;
-    card.style.transitionDuration = "0.2s"
-    card.style.transitionTimingFunction = "ease-out"
+    card.style.transition = "all 1s ease"
 }) 
