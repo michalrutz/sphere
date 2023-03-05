@@ -37,7 +37,7 @@ disTexture.generateMipmaps = false //turn off Mipmaps for better performance
 //loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
 
 
-let geometry = new THREE.SphereGeometry(3,32,32)
+let geometry = new THREE.SphereGeometry(3,64,64)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
@@ -49,9 +49,9 @@ let rncolors = randomColors(3)
 
 let material = new THREE.MeshStandardMaterial({color:`rgb(${rncolors[0]}, ${rncolors[1]}, ${rncolors[2]})`})
 material.displacementMap = disTexture
-material.displacementScale = 0.1
+material.displacementScale = 0.0
 material.bumpMap = disTexture   
-material.bumpScale = 0.1
+material.bumpScale = 0.05
 material.roughness = 0.5
 material.metalness = 0.5
 
@@ -203,7 +203,7 @@ window.smoothScroll = function(target) {
   
 */
 
-let containter = document.getElementById("card_about_cover");
+let containter = document.getElementById("container_cover");
 let card = document.getElementById("about");
 
 containter.addEventListener('mousemove', function(e) {
@@ -216,7 +216,7 @@ containter.addEventListener('mousemove', function(e) {
   let swingY = ((h/2-y)/(h/2)).toFixed(2)*10
   let swingX = ((w/2-x)/(w/2)).toFixed(2)*10
 
-  card.style.transform = `rotateX( ${swingY}deg) rotateY( ${swingX}deg)`;
+  card.style.transform = `rotateX(${swingY}deg) rotateY(${-swingX}deg) translateZ(50px)`;
 });
 
 
@@ -227,4 +227,9 @@ containter.addEventListener('mouseenter', ()=>{
 containter.addEventListener('mouseleave', ()=>{
     card.style.transform = `rotateX( ${0}deg) rotateY( ${0}deg)`;
     card.style.transition = "all 1s ease"
-}) 
+})
+
+document.onscroll = (e) => {
+    console.log("e")
+
+};
