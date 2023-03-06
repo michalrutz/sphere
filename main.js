@@ -37,7 +37,7 @@ disTexture.generateMipmaps = false //turn off Mipmaps for better performance
 //loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
 
 
-let geometry = new THREE.SphereGeometry(3,64,64)
+let geometry = new THREE.SphereGeometry(3,32,32)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
