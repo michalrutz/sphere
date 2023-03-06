@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
+
 }
 
 html, body {
@@ -302,11 +302,11 @@ article {
 
 .hidden {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateX(-30%);
     transition: all 2s;
 }
 .odd {
-    transform: translateX(100%);
+    transform: translateX(30%);
 }
 
 .visible {
