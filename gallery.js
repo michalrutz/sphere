@@ -8,7 +8,7 @@ const tvAdvisor = {
 const memoGame = {
     h: "the Memory Game",
     tools: ["CSS","JavaScript","React"],
-    p: "The cards are placed face down. In rows and columns. A player turns over two cards, one at a time. The object of the game is to collect all pairs as soon as possible <br>The application was created with help of react framework and demonstrates an advanced use of react hooks and JavaScript.",
+    p: "At the start, cards are placed face-down in neat rows and columns. A player then takes turns turning over two cards, one at a time, with the goal of finding matching pairs as quickly as possible. The application was created using React framework and demonstrates an advanced use of react hooks and JavaScript",
     img: "memo_small.png",
     link:"https://memo-game-six.vercel.app/"
 };
@@ -57,9 +57,9 @@ function gallery(data) {
             article.classList.add("box")
             article.innerHTML = 
             `
-            <div class="container_wide" id="container_project_${i}" onclick="window.open('${data[i].link}')">
+            <div class="container_wide hidden ${ i%2===0 ? "odd" : "" }" id="container_project_${i}" onclick="window.open('${data[i].link}')">
                 <div class="cover_wide"></div>
-                <div class="card_wide" id="project${i}">
+                <div class="card_wide " id="project${i}">
                     <div class="description">
                         <h3>${data[i].h}</h3>
                         <div class="list">
@@ -70,6 +70,7 @@ function gallery(data) {
                     <div class="picture" style="background:url(./static/${data[i].img}); background-size:contain" style="background-size:contain" ></div>
                 </div>
             </div>
+            <div class="break"></div>
             `
             animateCard( "container_project_"+i, "project"+i, 5 )
     }
@@ -80,3 +81,20 @@ gallery(projectsArray)
 
 animateCard("container_about_cover", "about", 10)
 animateCard("container_project_1", "project1", 2.5)
+
+const observer = new IntersectionObserver( (entries) => 
+    entries.forEach( (entry) => {
+        console.log(entry)
+        if (entry.isIntersecting){
+            entry.target.classList.add("visible")
+        }
+        else {
+            entry.target.classList.remove("visible")
+        }
+    }
+    )
+)
+
+const hiddenElements = document.querySelectorAll(".hidden");
+console.log(hiddenElements)
+hiddenElements.forEach( el => observer.observe(el) )

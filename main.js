@@ -204,6 +204,5 @@ window.smoothScroll = function(target) {
 */
 
 document.onscroll = (e) => {
-    console.log("e")
 
 };
