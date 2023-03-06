@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 html, body {
@@ -10,6 +9,7 @@ html, body {
     font-size: 62.5%;
     font-family: 'Poppins', sans-serif ;
     font-weight: 400;
+    background-color: black;
 }
 
 p{
@@ -39,11 +39,11 @@ p{
 }
 .box * {
     z-index: 2;
-    transition: all 1s;
 }
 #title_main{
     position: relative;
-    line-height:7rem
+    line-height:7rem;
+    animation: emerse 5s;
 }
 #under_title {
     display: flex;
@@ -51,7 +51,21 @@ p{
     justify-content: center;
     padding-bottom: 3rem;
     word-spacing: 0.2em;
+    animation: emerse 5s;
 }
+
+@keyframes emerse {
+    0%{
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+
 h1{
     font-family: 'Cinzel', serif;
     text-align: center;
@@ -76,14 +90,13 @@ h2{
     background-color: transparent;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.2);
-    transition: all 2s;
-
+    transition: border 1s;
 }
 .next:hover {
     border: 3px solid rgba(255, 255, 255, 1);
     transition: border 1s;
     animation: upAndDown 0.6s 2 ease-out;
-    transition: all 2s;
+    transition: all 1s;
 }
 @keyframes upAndDown {
     0%,100%{
@@ -141,7 +154,9 @@ main {
     margin-bottom: 1rem;
     box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8), 0px 4px 5px rgba(0, 0, 0, 0.8);
     overflow: hidden;
-    transition: border 1s;
+}
+.card * {
+    transition: all 1s;
 }
 
 .container_wide {
@@ -173,6 +188,7 @@ main {
     top: 0;
 }
 .card_wide {
+    perspective: 1000px;
     z-index: 4;
     transform-style: preserve-3d;
     width: 750px;
@@ -188,11 +204,13 @@ main {
     margin-bottom: 1rem;
     border-radius: 10px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.8), 0px 4px 5px rgba(0, 0, 0, 1);
-    overflow: hidden;
     transition: border 1s;
-    transform: scale(100%);
-
+    overflow: hidden;
 }
+.card_wide * {
+    transition: all 0.5s ease-out;
+}
+
 .picture {
     width: 750px;
     max-width: 100%;
@@ -235,18 +253,21 @@ tag{
     margin-bottom: 0.2rem;
     box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.5);
 }
+@media (hover:hover){
+    #container_about_cover:hover + #about {
+        border: 1px solid rgb(255, 255, 255);
+    }
+    #container_about_cover:hover + .card tag {
+        box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6), 0px 0px 6px rgba(255, 255, 255, 0.4);
+    }
+    #container_about_cover:hover + #about #photo {
+        background-color: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+        background: url("public/static/trans.png") rgba(240, 248, 255, 0.1);
+        background-size: contain;
+    }
+}
 
-#container_about_cover:hover + #about {
-    border: 1px solid rgb(255, 255, 255);
-}
-#container_about_cover:hover + .card tag {
-    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6), 0px 0px 6px rgba(255, 255, 255, 0.4);
-}
-#container_about_cover:hover + #about #photo {
-    background-color: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-    background: url("public/static/trans.png") rgba(240, 248, 255, 0.1);
-    background-size: contain;
-}
+
 section {
     display: flex;
     flex-direction: column;
@@ -278,6 +299,9 @@ article {
 }
 
 .description{
+    transform-style: preserve-3d;
+    transform: translateZ(0px);
+
     padding: 1.2rem 1.6rem;
     display: flex;
     flex-direction: row;
@@ -286,6 +310,8 @@ article {
     flex-wrap: wrap;
     gap: 1rem;
 }
+
+
 .description h3 {
     font-size: 3rem;
 }
@@ -298,16 +324,20 @@ article {
 }
 .list {
     align-self: center;
+
 }
 
 .hidden {
     opacity: 0;
-    transition: all 2s;
+    transition: all 1.5s;
+    transform: translateX(-100%);
 }
 .odd {
+    transform: translateX(100%);
 }
 
 .visible {
     opacity: 1;
-    transition: all 1s;
+    transform: translateX(0%);
+    transition: all 1.5s;
 }

@@ -36,7 +36,7 @@ function animateCard(cardContainer, cardToAnimate, power) {
         let swingY = ((h/2-y)/(h/2)).toFixed(2)*power
         let swingX = ((w/2-x)/(w/2)).toFixed(2)*power
       
-        card.style.transform = `rotateX(${swingY}deg) rotateY(${-swingX}deg) scale(100%)`;
+        card.style.transform = `rotateX(${swingY}deg) rotateY(${-swingX}deg) scale(105%)`;
       });
       
       container.addEventListener('mouseenter', ()=>{
@@ -44,7 +44,7 @@ function animateCard(cardContainer, cardToAnimate, power) {
       }) 
       
       container.addEventListener('mouseleave', ()=>{
-          card.style.transform = `rotateX( ${0}deg) rotateY( ${0}deg) scale(80%)`;
+          card.style.transform = `rotateX( ${0}deg) rotateY( ${0}deg) scale(100%)`;
           card.style.transition = "all 1s ease"
       })
 }
@@ -57,9 +57,9 @@ function gallery(data) {
             article.classList.add("box")
             article.innerHTML = 
             `
-            <div class="container_wide ${ i%2===0 ? "odd" : "" }" id="container_project_${i}" onclick="window.open('${data[i].link}')">
+            <div class="container_wide hidden ${ i%2===0 ? "odd" : "" }" id="container_project_${i}" onclick="window.open('${data[i].link}')">
                 <div class="cover_wide"></div>
-                <div class="card_wide " id="project${i}">
+                <div class="card_wide" id="project${i}">
                     <div class="description">
                         <h3>${data[i].h}</h3>
                         <div class="list">
@@ -97,4 +97,4 @@ const observer = new IntersectionObserver( (entries) =>
 
 const hiddenElements = document.querySelectorAll(".hidden");
 console.log(hiddenElements)
-//hiddenElements.forEach( el => observer.observe(el) )
+hiddenElements.forEach( el => observer.observe(el) )
