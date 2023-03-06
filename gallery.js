@@ -67,7 +67,7 @@ function gallery(data) {
                         </div>
                         <p>${data[i].p}</p>
                     </div>
-                    <div class="picture" style="background:url(public/static/${data[i].img}); background-size:contain" style="background-size:contain" ></div>
+                    <div class="picture" style="background:url(./static/${data[i].img}); background-size:contain" style="background-size:contain" ></div>
                 </div>
             </div>
             `
