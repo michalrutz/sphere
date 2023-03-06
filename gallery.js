@@ -57,7 +57,7 @@ function gallery(data) {
             article.classList.add("box")
             article.innerHTML = 
             `
-            <div class="container_wide hidden ${ i%2===0 ? "odd" : "" }" id="container_project_${i}" onclick="window.open('${data[i].link}')">
+            <div class="container_wide ${ i%2===0 ? "odd" : "" }" id="container_project_${i}" onclick="window.open('${data[i].link}')">
                 <div class="cover_wide"></div>
                 <div class="card_wide " id="project${i}">
                     <div class="description">
@@ -97,4 +97,4 @@ const observer = new IntersectionObserver( (entries) =>
 
 const hiddenElements = document.querySelectorAll(".hidden");
 console.log(hiddenElements)
-hiddenElements.forEach( el => observer.observe(el) )
+//hiddenElements.forEach( el => observer.observe(el) )
