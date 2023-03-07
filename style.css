@@ -312,14 +312,12 @@ article {
     z-index: 5;
     color: white;
     min-height: 100vh;
-    font-size:1.5rem;
     transition: all 1s;
 }
 
 .description{
     transform-style: preserve-3d;
     transform: translateZ(0px);
-
     padding: 1.2rem 1.6rem;
     display: flex;
     flex-direction: row;
@@ -334,10 +332,10 @@ article {
     font-size: 3rem;
 }
 .description tag {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 .description p {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     width: 100%;
 }
 .list {

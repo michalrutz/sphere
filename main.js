@@ -76,6 +76,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.enablePan = false
 controls.enableDamping = true
 controls.enableZoom =  false
+controls.enableRotate = false
 //controls.minPolarAngle = Math.PI/2; //block y axis up
 //controls.maxPolarAngle = Math.PI/2; //block y axis down
 controls.maxAzimuthAngle=Math.PI/2;
