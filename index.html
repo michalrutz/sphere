@@ -24,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet"/>
     <title>Vite App</title>
     <script defer type="module" src="/main.js"></script>
-    <script defer type="module" src="/gallery.js"></script>
+    <script defer type="module" src="/animations.js"></script>
   </head>
   <body>
     <canvas id="c1"></canvas>
@@ -34,7 +34,7 @@
           <h2>creative frontend developer</h2>
           <h2>&nbsp;& graphic designer</h2>
         </div>
-        <button class="next" id="title_bttn" onclick="smoothScroll(document.getElementById('main'))" >↓</button>
+        <button class="next" id="title_bttn" onclick="smoothScroll('main', 1000)" >↓</button>
     </header> 
     <main id="main" class="box">
       <div class="containter" id="containter_about">
@@ -53,15 +53,18 @@
           </div>
         </div>
       </div>
-      <button class="next" id="title_bttn" onclick="smoothScroll(document.getElementById('container_project_0'))" >↓</button>
+      <button class="next" id="title_bttn" onclick="smoothScroll('article', 1000)" >↓</button>
     </main>
     <section id="projects" class="box">
       <div class="section_title"><h2>projects</h2></div>
     </section>
-    <footer class="box">
-      <a href="https://www.linkedin.com/in/michal-rucinski-vienna/">linkedIn</a>
-      <a href="https://github.com/michalrutz">github</a>
+    <footer id="footer" class="box">
+      <nav>
+        <button class="simple_bttn" onclick="smoothScroll('main', 1000)" >about</button>
+        <button class="simple_bttn" onclick="smoothScroll('main', 1000)" >projects</button>
+        <button class="simple_bttn" onclick="smoothScroll('main', 1000)" >linkedIn</button>
+        <button class="simple_bttn" onclick="smoothScroll('main', 1000)" >github</button>
+      </nav>
     </footer>
-    
   </body>
 </html>

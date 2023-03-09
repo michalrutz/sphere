@@ -82,6 +82,7 @@ function gallery(data) {
                     <div class="picture" style="background:url(./static/${data[i].img}); background-size:contain" style="background-size:contain" ></div>
                 </div>
             </div>
+            <button class="next" id="title_bttn" onclick="smoothScroll('#container_project_${i+1}', 1000)" ${i===data.length-1 ? 'hidden' : ""}  >↓</button>
             <div class=break></div>
             `
             animateCard( "container_project_"+i, "project"+i, 4)

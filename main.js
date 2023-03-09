@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RepeatWrapping } from "three";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+
 //SCENE
 const scene = new THREE.Scene()
 scene.fog = new THREE.Fog( "darkblue", 0, 15 );
@@ -18,9 +19,13 @@ camera.position.z = 4
 scene.add(camera)
 
 //LIGHT
-const light = new THREE.PointLight( "white", 0.8, 300 );
+const light = new THREE.PointLight( "white", 0.8, 100 );
 light.position.set( 0 , 0, -14)
 scene.add( light )
+
+const light2 = new THREE.AmbientLight( "darkblue", 0.01 );
+light2.position.set( 0 , 0, -14)
+scene.add( light2 )
 
 //LOADING TEXTURE
 const disTexture = new THREE.TextureLoader().load("./static/Alien_Metal_002_DISP.jpg")
@@ -53,11 +58,11 @@ material.displacementScale = 0.0
 material.bumpMap = disTexture   
 material.bumpScale = 0.05
 material.roughness = 0.5
-material.metalness = 0.5
+material.metalness = 0.8
 
 const mesh = new THREE.Mesh( geometry, material )
 mesh.rotateZ( Math.PI/2 )
-mesh.rotateX( Math.PI/2 )
+mesh.rotateY( Math.PI/2 )
 
 mesh.position.set( 0, 0, 0)
 mesh.projectOnVector //?
@@ -74,39 +79,22 @@ renderer.render(scene, camera)
 // CONTROLS
 const controls = new OrbitControls(camera, canvas)
 controls.enablePan = false
-controls.enableDamping = true
 controls.enableZoom =  false
 controls.enableRotate = false
-//controls.minPolarAngle = Math.PI/2; //block y axis up
-//controls.maxPolarAngle = Math.PI/2; //block y axis down
-controls.maxAzimuthAngle=Math.PI/2;
-controls.minAzimuthAngle=Math.PI/2;
+controls.maxPolarAngle=Math.PI/2;
+controls.minPolarAngle=Math.PI/2;
 
 
-controls.addEventListener( "change", ()=> { renderer.render(scene, camera) })
-window.addEventListener('mousemove', (e) =>
-{
-    const cursor = {
-        x:0,
-        y:0
-    }
-    
-    /* 
-    cursor.x = e.x / window.innerWidth -0.5
-    cursor.y = -(e.y / window.innerHeight -0.5)
-    console.log(cursor.x*Math.PI*4)
-    
-    camera.position.x = Math.sin(cursor.x*Math.PI*2)*5
-    camera.position.z = Math.cos(cursor.x*Math.PI*2)*5
-    camera.position.y = Math.sin(cursor.y*Math.PI*2)*2
-    camera.lookAt(mesh.position)
-    */
-})
+// Listen for the scroll event
 
 
-const clock = new THREE.Clock()
+
+const startTime = Date.now()/1000; // Get the current time in seconds
+
 const animation = () =>{
-    const elapsedTime = clock.getElapsedTime()
+    const elapsedTime = Date.now()/1000 - startTime
+    const elapsedTime2 = Date.now()/1000 - startTime
+    let detla = elapsedTime2-elapsedTime;
 
     // moving in cirle 
     light.position.x = 0
@@ -116,17 +104,25 @@ const animation = () =>{
     light.position.z = -1
     light.position.z += Math.sin(elapsedTime)*10
     mesh.material.color.setRGB( Math.cos(elapsedTime/4), Math.sin(elapsedTime/4), Math.cos(elapsedTime/4))
-    mesh.rotation.y = -elapsedTime*0.05
+    
+    mesh.rotation.x = -elapsedTime*0.025
+
+
     controls.update() //otherwise dumping doesn't work!
     // Render
     renderer.render(scene, camera)
     // Call tick again on the next frame
+    
     window.requestAnimationFrame(animation)
 }
 animation()
 
-const tl = gsap.timeline({ defaults: {duration: 1.5} })
-tl.fromTo(mesh.scale, {x:0,y:0,z:0},{x:1,y:1,z:1})
+const tl = gsap.timeline({ defaults: {duration: 3} })
+tl.fromTo(light, {intensity:0},{intensity:0.6})
+tl.fromTo(light2, {intensity:0},{intensity:1})
+
+
+//tl.fromTo(mesh.scale, {x:0,y:0,z:0},{x:1,y:1,z:1})
 
 /*
 window.addEventListener('dblclick', () =>
@@ -170,8 +166,9 @@ window.addEventListener( "resize", ()=> {
 
 
 document.getElementById( "title_bttn" ).addEventListener("click", ()=>{ console.log("spin") } )
+
 //ANIMATIONS
-window.smoothScroll = function(target) {
+window.smoothScroll1 = function(target) {
     var scrollContainer = target;
     do { //find scroll container
         scrollContainer = scrollContainer.parentNode;
@@ -185,25 +182,38 @@ window.smoothScroll = function(target) {
         targetY += target.offsetTop;
     } while (target = target.offsetParent);
     
-    scroll = function(c, a, b, i) {
+    scroll = function(container, a, b, i) {
         i++; if (i > 30) return;
-        c.scrollTop = a + (b - a) / 30 * i;
-        setTimeout(function(){ scroll(c, a, b, i); }, 8);
+        container.scrollTop = a + (b - a) / 30 * i;
+        setTimeout(function(){ scroll(container, a, b, i); }, 1);
     }
     // start scrolling
-    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 5);
 }
 
-//CARD
-/*
+window.smoothScroll = function (target, duration) {
+    const targetElement = document.querySelector(target);
+    
+    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
 
-  using 
-    - an animated gif of sparkles.
-    - an animated gradient as a holo effect.
-    - color-dodge mix blend mode
-  
-*/
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = ease(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
 
-document.onscroll = (e) => {
+    function ease(time, position, distance, duration) {
+        time /= duration / 2;
+        if (time < 1) return distance / 2 * time * time + position;
+        time--;
+        return -distance / 2 * (time * (time - 2) - 1) + position;
+    }
 
-};
+    requestAnimationFrame(animation);
+}
+
