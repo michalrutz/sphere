@@ -19,7 +19,7 @@ camera.position.z = 4
 scene.add(camera)
 
 //LIGHT
-const light = new THREE.PointLight( "white", 0.8, 100, 10 );
+const light = new THREE.PointLight( "white", 1, 100, 10 );
 light.position.set( 0 , 0, -14)
 scene.add( light )
 
@@ -103,7 +103,7 @@ const animation = () =>{
     light.position.y += Math.sin(elapsedTime/2)*15
     light.position.z = -1
     light.position.z += Math.sin(elapsedTime)*10
-    mesh.material.color.setRGB( Math.cos( Math.min(elapsedTime/4, 0.4) ), Math.sin( Math.min(elapsedTime/4, 0.4)), Math.cos( Math.min(elapsedTime/4, 0.4)))
+    mesh.material.color.setRGB( Math.cos( elapsedTime/4 ), Math.sin( elapsedTime/4, 1 ), Math.cos( elapsedTime/4, 1 ))
     
     mesh.rotation.x = -elapsedTime*0.025
 
@@ -117,7 +117,7 @@ const animation = () =>{
 }
 animation()
 
-const tl = gsap.timeline({ defaults: {duration: 3} })
+const tl = gsap.timeline({ defaults: {duration: 1} })
 tl.fromTo(light, {intensity:0},{intensity:0.6})
 tl.fromTo(light2, {intensity:0},{intensity:1})
 
