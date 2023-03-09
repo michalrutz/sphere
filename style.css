@@ -388,3 +388,10 @@ footer {
 footer a {
     font-size: 4rem;
 }
+
+#projects_h{
+    font-size: 7rem;
+    text-transform: uppercase;
+    font-family: 'Cabin', sans-serif;
+
+}
