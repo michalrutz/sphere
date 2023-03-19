@@ -23,7 +23,11 @@ const light = new THREE.PointLight( "white", 1, 100, 10 );
 light.position.set( 0 , 0, -14)
 scene.add( light )
 
-const light2 = new THREE.AmbientLight( "darkblue", 0.01 );
+const light3 = new THREE.PointLight( "white", 1, 100, 10 );
+light.position.set( 0 , 0, 14)
+scene.add( light3 )
+
+const light2 = new THREE.AmbientLight( "darkblue", 0.02 );
 light2.position.set( 0 , 0, -14)
 scene.add( light2 )
 
@@ -42,7 +46,7 @@ disTexture.generateMipmaps = false //turn off Mipmaps for better performance
 //loader.load("./static/sphere.glb", (sphere) => { geometry2=sphere.scene; scene.add(sphere.scene) })
 
 
-let geometry = new THREE.SphereGeometry(3,32,32)
+let geometry = new THREE.SphereGeometry(3.2,32,32)
 function randomColors(num) {
     let rncolors = []
     for (let i = 0; i < num; i++) {
@@ -71,7 +75,7 @@ scene.add(mesh)
 
 //RENDERER
 const canvas = document.getElementById("c1")
-const renderer = new THREE.WebGLRenderer({canvas})
+const renderer = new THREE.WebGLRenderer({canvas, antialias: true})
 renderer.setSize(window.innerWidth , window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3))
 renderer.render(scene, camera)
@@ -102,10 +106,18 @@ const animation = () =>{
     light.position.y = 0
     light.position.y += Math.sin(elapsedTime/2)*15
     light.position.z = -1
-    light.position.z += Math.sin(elapsedTime)*10
+    light.position.z += Math.cos(elapsedTime)*10
+
+    light3.position.x = 0
+    light3.position.x -= Math.cos(elapsedTime/2)*15
+    light3.position.y = 0
+    light3.position.y -= Math.sin(elapsedTime/2)*15
+    light3.position.z = 1
+    light3.position.z -= Math.sin(elapsedTime)*10
+
     mesh.material.color.setRGB( Math.cos( elapsedTime/4 ), Math.sin( elapsedTime/4, 1 ), Math.cos( elapsedTime/4, 1 ))
     
-    mesh.rotation.x = -elapsedTime*0.025
+    mesh.rotation.x = -elapsedTime*0.010
 
 
     controls.update() //otherwise dumping doesn't work!
@@ -216,4 +228,3 @@ window.smoothScroll = function (target, duration) {
 
     requestAnimationFrame(animation);
 }
-
