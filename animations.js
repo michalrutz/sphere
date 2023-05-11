@@ -9,7 +9,7 @@ const memoGame = {
     h: "The Memory Game",
     tools: ["CSS","JavaScript","React"],
     p: "At the start, cards are placed face-down in neat rows and columns. A player then takes turns turning over two cards, one at a time, with the goal of finding matching pairs as quickly as possible. The application was created using React framework and demonstrates an advanced use of react hooks and JavaScript",
-    img: "memo_small.jpg",
+    img: "memo_small.JPG",
     link:"https://memo-game-six.vercel.app/"
 };
 const SimonGame = {
@@ -19,7 +19,15 @@ const SimonGame = {
     img: "simon.JPG",
     link:"https://simon-game-red-eta.vercel.app/"
 };
-const projectsArray = [tvAdvisor, memoGame, SimonGame];
+const TShirtShop = {
+    h: "3D T-Shirt Cusomizer",
+    tools: ["CSS","JavaScript","React", "WebGl", "Three.js"],
+    p: "  Create your unique and exclusive shirt with our brand-new 3D customization tool. <strong>Unleash your imagination</strong> and define your own style.",
+    img: "tshirt_small.jpg",
+    link:"https://ur-t-shirt.vercel.app/"
+};
+
+const projectsArray = [TShirtShop, tvAdvisor, memoGame, SimonGame];
 
 
 //CARD 3D ANIMATION
