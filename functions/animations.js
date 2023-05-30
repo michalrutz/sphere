@@ -1,10 +1,6 @@
-import { list } from "./assets/project.js"
-
-
-
+import { list } from "../assets/project.js"
 
 const projectsArray = [...list];
-
 
 //CARD 3D ANIMATION
 function animateCard(cardContainer, cardToAnimate, power) {
