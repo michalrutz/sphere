@@ -27,7 +27,14 @@ const SimonGame = {
         img: "simon.JPG",
         link:"https://simon-game-red-eta.vercel.app/"
 };
+const shop = {
+        h: "E-Commerce with Stripe & Database",
+        tools: ["Tailwind","React", "Next.js","Prisma","PostgreSQL", "Stripe"],
+        p: "",
+        img: "prisma.JPG",
+        link: "https://prisma-gallery.vercel.app/"
+};
 
-const list = [ tShirtShop, tvAdvisor, memoGame ]
+const list = [ shop, tShirtShop, tvAdvisor, memoGame ]
 
 export { list }

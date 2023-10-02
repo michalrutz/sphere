@@ -1,11 +1,11 @@
 import * as THREE from "three"
 import "./style.css"
 import gsap from "gsap"
-import GUI from 'lil-gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RepeatWrapping } from "three";
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+
+console.log("MAIN.js")
 
 //SCENE
 const scene = new THREE.Scene()
@@ -94,6 +94,7 @@ controls.minPolarAngle=Math.PI/2;
 
 
 const startTime = Date.now()/1000; // Get the current time in seconds
+console.log("animation")
 
 const animation = () =>{
     const elapsedTime = Date.now()/1000 - startTime
